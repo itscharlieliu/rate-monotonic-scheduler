@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Timer;
 
 public class RateMonotonicScheduler {
@@ -8,6 +9,14 @@ public class RateMonotonicScheduler {
     static final int MAJOR_FRAME_PERIOD = 16;
 
     public static void main(String[] args) {
+
+        // setting the processor affinity to CPU0
+        try {
+            long pid = ProcessHandle.current().pid();
+            Runtime.getRuntime().exec("taskset -cp 0 " + pid);
+        } catch (IOException e) {
+            System.out.println("Unable to set processor affinity");
+        }
 
         Scheduler scheduler = new Scheduler();
         Timer timer = new Timer();
@@ -22,11 +31,5 @@ public class RateMonotonicScheduler {
         }
 
         timer.cancel();
-
-        System.out.println(
-                "\nScheduler periods completed (RateMonotonicScheduler): "
-                + scheduler.schedulerPeriodsCompleted
-                + "\n"
-        );
     }
 }

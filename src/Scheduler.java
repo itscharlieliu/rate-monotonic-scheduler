@@ -16,7 +16,7 @@ public class Scheduler extends TimerTask {
 
     private ScheduledThread thread1 = new ScheduledThread(sem1, 1, THREAD_1_PERIOD);
     private ScheduledThread thread2 = new ScheduledThread(sem2, 2, THREAD_2_PERIOD);
-    private ScheduledThread thread3 = new ScheduledThread(sem3, 4, THREAD_3_PERIOD);
+    private ScheduledThread thread3 = new ScheduledThread(sem3, 24000, THREAD_3_PERIOD);
     private ScheduledThread thread4 = new ScheduledThread(sem4, 16, THREAD_4_PERIOD);
 
     Scheduler(){
@@ -96,7 +96,7 @@ public class Scheduler extends TimerTask {
             return;
         }
 
-        System.out.println("\nScheduler periods completed: " + ++schedulerPeriodsCompleted);
+        System.out.println("Scheduler periods completed: " + ++schedulerPeriodsCompleted + '\n');
 
         scheduleThread(thread1, sem1);
         scheduleThread(thread2, sem2);
